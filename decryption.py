@@ -15,13 +15,13 @@ def DeriveKey(passwordParam):
 filename = 'Food-file.txt'
 
 # read the contents of the file
-with open(filename, 'r') as file:
-    message = file.read()
+with open(filename, 'rb') as file:
+    encMessage = file.read()
  
 password = getpass.getpass("enter password: ")
  
 fernet = Fernet(DeriveKey(password))
-encMessage = fernet.encrypt(message.encode())
+decMessage = fernet.decrypt(encMessage).decode()
  
-with open(filename, 'wb') as f:
-    f.write(encMessage)
+with open(filename, 'w') as f:
+    f.write(decMessage)
